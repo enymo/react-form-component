@@ -1,0 +1,40 @@
+{
+  "name": "@enymo/react-form-component",
+  "version": "0.0.0",
+  "description": "Wrapper for react-hook-form to allow better use with components",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "tsup": {
+    "entry": [
+      "src/js/index.ts"
+    ],
+    "format": [
+      "esm",
+      "cjs"
+    ],
+    "dts": true
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.internal.enymo.com/enymo/library/react-form-component.git"
+  },
+  "author": "enymo GmbH",
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "@enymo:registry": "https://gitlab.internal.enymo.com/api/v4/projects/88/packages/npm/"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.26",
+    "postcss": "^8.4.17",
+    "tsup": "^6.2.2",
+    "typescript": "^4.7.4"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-hook-form": "^7.40.0"
+  }
+}
