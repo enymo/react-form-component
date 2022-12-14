@@ -1,7 +1,8 @@
 import React, { ReactText, useCallback } from "react";
 import { FormProvider, UseFormReturn } from "react-hook-form";
 import { FieldValues } from "react-hook-form";
-import { ButtonContextProvider } from "../Hooks/ButtonContext";
+import { LoadingProvider } from "../Hooks/LoadingContext";
+import { SubmitProvider } from "../Hooks/SubmitContext";
 
 export type SubmitHandler<T extends FieldValues> = (data: T, event?: React.BaseSyntheticEvent, submitButton?: string) => any | Promise<any>;
 
@@ -25,9 +26,11 @@ export default function BaseForm<T extends FieldValues>({
     return (
         <form className={className} onSubmit={form.handleSubmit(onSubmit)}>
             <FormProvider {...form}>
-                <ButtonContextProvider value={{loading, handleSubmit}}>
-                    {children}
-                </ButtonContextProvider>
+                <LoadingProvider value={loading}>
+                    <SubmitProvider value={handleSubmit}>
+                        {children}
+                    </SubmitProvider>
+                </LoadingProvider>
             </FormProvider>
         </form>
     )
