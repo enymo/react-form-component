@@ -6,6 +6,7 @@ import { AxiosError } from "axios";
 export default function Form<T extends FieldValues>({onSubmit, form, ...props}: {
     form: UseFormReturn<T>,
     onSubmit: SubmitHandler<T>,
+    disabled?: boolean,
     className?: string,
     children: React.ReactNode
 }) {
