@@ -1,7 +1,7 @@
+import { AxiosError } from "axios";
 import React, { useCallback, useState } from "react";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import BaseForm, { SubmitHandler } from "./BaseForm";
-import { AxiosError } from "axios";
 
 export default function Form<T extends FieldValues>({onSubmit, form, ...props}: {
     form: UseFormReturn<T>,
@@ -18,8 +18,8 @@ export default function Form<T extends FieldValues>({onSubmit, form, ...props}: 
             await onSubmit(...args);
         }
         catch (e) {
-            if (e instanceof AxiosError && "errors" in e.response.data) {
-                for (const [key, value] of Object.entries(e.response.data.errors)) {
+            if (e instanceof AxiosError && "errors" in e.response?.data) {
+                for (const [key, value] of Object.entries(e.response?.data.errors)) {
                     form.setError(key as Path<T>, {
                         type: "manual",
                         message: value as string

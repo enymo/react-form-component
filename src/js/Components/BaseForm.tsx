@@ -1,6 +1,5 @@
-import React, { ReactText, useCallback } from "react";
-import { FormProvider, UseFormReturn } from "react-hook-form";
-import { FieldValues } from "react-hook-form";
+import React, { useCallback } from "react";
+import { FieldValues, FormProvider, UseFormReturn } from "react-hook-form";
 import { DisabledProvider } from "../Hooks/DisabledContext";
 import { LoadingProvider } from "../Hooks/LoadingContext";
 import { SubmitProvider } from "../Hooks/SubmitContext";
@@ -10,24 +9,24 @@ export type SubmitHandler<T extends FieldValues> = (data: T, event?: React.BaseS
 export default function BaseForm<T extends FieldValues>({
     form,
     onSubmit,
-    disabled,
+    disabled = false,
     className,
-    loading,
+    loading = false,
     children
 }: {
     form: UseFormReturn<T>,
-    onSubmit: SubmitHandler<T>,
+    onSubmit?: SubmitHandler<T>,
     disabled?: boolean,
     className?: string,
     loading?: boolean,
     children: React.ReactNode
 }) {
     const handleSubmit = useCallback((submitButton?: string) => {
-        return form.handleSubmit((data, event) => onSubmit(data, event, submitButton));
+        return form.handleSubmit((data, event) => onSubmit?.(data, event, submitButton));
     }, [form, onSubmit]);
 
     return (
-        <form className={className} onSubmit={form.handleSubmit(onSubmit)}>
+        <form className={className} onSubmit={onSubmit && form.handleSubmit(onSubmit)}>
             <FormProvider {...form}>
                 <LoadingProvider value={loading}>
                     <SubmitProvider value={handleSubmit}>
