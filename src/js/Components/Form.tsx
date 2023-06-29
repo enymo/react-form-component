@@ -5,7 +5,7 @@ import BaseForm, { SubmitHandler } from "./BaseForm";
 
 export default function Form<T extends FieldValues>({onSubmit, form, ...props}: {
     form: UseFormReturn<T>,
-    onSubmit: SubmitHandler<T>,
+    onSubmit?: SubmitHandler<T>,
     disabled?: boolean,
     className?: string,
     children: React.ReactNode
@@ -15,7 +15,7 @@ export default function Form<T extends FieldValues>({onSubmit, form, ...props}: 
     const handleSubmit: SubmitHandler<T> = useCallback(async (...args) => {
         setLoading(true);
         try {
-            await onSubmit(...args);
+            await onSubmit?.(...args);
         }
         catch (e) {
             if (e instanceof AxiosError && "errors" in e.response?.data) {
