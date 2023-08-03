@@ -1,6 +1,6 @@
 {
   "name": "@enymo-internal/react-form-component",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Wrapper for react-hook-form to allow better use with components",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
