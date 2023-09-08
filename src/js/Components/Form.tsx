@@ -1,15 +1,9 @@
 import { AxiosError } from "axios";
 import React, { useCallback, useState } from "react";
-import { FieldValues, Path, UseFormReturn } from "react-hook-form";
-import BaseForm, { SubmitHandler } from "./BaseForm";
+import { FieldValues, Path } from "react-hook-form";
+import BaseForm, { FormProps, SubmitHandler } from "./BaseForm";
 
-export default function Form<T extends FieldValues>({onSubmit, form, ...props}: {
-    form: UseFormReturn<T>,
-    onSubmit?: SubmitHandler<T>,
-    disabled?: boolean,
-    className?: string,
-    children: React.ReactNode
-}) {
+export default function Form<T extends FieldValues>({onSubmit, form, ...props}: FormProps<T>) {
     const [loading, setLoading] = useState(false);
 
     const handleSubmit: SubmitHandler<T> = useCallback(async (...args) => {

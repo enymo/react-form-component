@@ -5,6 +5,14 @@ import { LoadingProvider } from "../Hooks/LoadingContext";
 import { SubmitProvider } from "../Hooks/SubmitContext";
 
 export type SubmitHandler<T extends FieldValues> = (data: T, event?: React.BaseSyntheticEvent, submitButton?: string) => any | Promise<any>;
+export interface FormProps<T extends FieldValues> {
+    form: UseFormReturn<T>,
+    onSubmit?: SubmitHandler<T>,
+    disabled?: boolean,
+    className?: string,
+    loading?: boolean,
+    children: React.ReactNode
+}
 
 export default function BaseForm<T extends FieldValues>({
     form,
@@ -13,14 +21,7 @@ export default function BaseForm<T extends FieldValues>({
     className,
     loading = false,
     children
-}: {
-    form: UseFormReturn<T>,
-    onSubmit?: SubmitHandler<T>,
-    disabled?: boolean,
-    className?: string,
-    loading?: boolean,
-    children: React.ReactNode
-}) {
+}: FormProps<T>) {
     const handleSubmit = useCallback((submitButton?: string) => {
         return form.handleSubmit((data, event) => onSubmit?.(data, event, submitButton));
     }, [form, onSubmit]);
