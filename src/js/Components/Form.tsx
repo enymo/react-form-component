@@ -1,9 +1,11 @@
 import { AxiosError } from "axios";
 import React, { useCallback, useState } from "react";
 import { FieldValues, Path } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import BaseForm, { FormProps, SubmitHandler } from "./BaseForm";
 
 export default function Form<T extends FieldValues>({onSubmit, form, ...props}: FormProps<T>) {
+    const {t} = useTranslation();
     const [loading, setLoading] = useState(false);
 
     const handleSubmit: SubmitHandler<T> = useCallback(async (...args) => {
@@ -16,7 +18,7 @@ export default function Form<T extends FieldValues>({onSubmit, form, ...props}: 
                 for (const [key, value] of Object.entries(e.response?.data.errors)) {
                     form.setError(key as Path<T>, {
                         type: "manual",
-                        message: value as string
+                        message: t(value as string)
                     });
                 }
             }

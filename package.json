@@ -36,6 +36,7 @@
   "peerDependencies": {
     "axios": "^1.2.1",
     "react": ">=17.0.0",
-    "react-hook-form": "^7.40.0"
+    "react-hook-form": "^7.40.0",
+    "react-i18next": "^13.5.0"
   }
 }
