@@ -26,7 +26,9 @@ export default function Form<T extends FieldValues>({onSubmit, form, ...props}: 
                 throw e;
             }
         }
-        setLoading(false);
+        finally {
+            setLoading(false);
+        }
     }, [onSubmit, setLoading])
 
     return (
