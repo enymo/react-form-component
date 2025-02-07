@@ -6,6 +6,7 @@ import { SubmitProvider } from "../Hooks/SubmitContext";
 
 export type SubmitHandler<T extends FieldValues> = (data: T, event?: React.BaseSyntheticEvent, submitButton?: string) => any | Promise<any>;
 export interface FormProps<T extends FieldValues> {
+    id?: string,
     form: UseFormReturn<T>,
     onSubmit?: SubmitHandler<T>,
     disabled?: boolean,
@@ -15,6 +16,7 @@ export interface FormProps<T extends FieldValues> {
 }
 
 export default function BaseForm<T extends FieldValues>({
+    id,
     form,
     onSubmit,
     disabled = false,
@@ -27,7 +29,7 @@ export default function BaseForm<T extends FieldValues>({
     }, [form, onSubmit]);
 
     return (
-        <form className={className} onSubmit={onSubmit && form.handleSubmit(onSubmit)}>
+        <form id={id} className={className} onSubmit={onSubmit && form.handleSubmit(onSubmit)}>
             <FormProvider {...form}>
                 <LoadingProvider value={loading}>
                     <SubmitProvider value={handleSubmit}>
