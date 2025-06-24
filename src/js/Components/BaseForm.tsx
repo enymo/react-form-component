@@ -12,7 +12,8 @@ export interface FormProps<T extends FieldValues> {
     disabled?: boolean,
     className?: string,
     loading?: boolean,
-    children: React.ReactNode
+    reactNative?: boolean
+    children: React.ReactNode,
 }
 
 export default function BaseForm<T extends FieldValues>({
@@ -22,23 +23,28 @@ export default function BaseForm<T extends FieldValues>({
     disabled = false,
     className,
     loading = false,
+    reactNative = false,
     children
 }: FormProps<T>) {
     const handleSubmit = useCallback((submitButton?: string) => {
         return form.handleSubmit((data, event) => onSubmit?.(data, event, submitButton));
     }, [form, onSubmit]);
 
-    return (
+    const content = (
+        <FormProvider {...form}>
+            <LoadingProvider value={loading}>
+                <SubmitProvider value={handleSubmit}>
+                    <DisabledProvider value={disabled}>
+                        {children}
+                    </DisabledProvider>
+                </SubmitProvider>
+            </LoadingProvider>
+        </FormProvider>
+    )
+
+    return reactNative ? content : (
         <form id={id} className={className} onSubmit={onSubmit && form.handleSubmit(onSubmit)}>
-            <FormProvider {...form}>
-                <LoadingProvider value={loading}>
-                    <SubmitProvider value={handleSubmit}>
-                        <DisabledProvider value={disabled}>
-                            {children}
-                        </DisabledProvider>
-                    </SubmitProvider>
-                </LoadingProvider>
-            </FormProvider>
+            {content}
         </form>
     )
 }
