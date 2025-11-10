@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { FieldValues, FormProvider, UseFormReturn } from "react-hook-form";
 import { DisabledProvider } from "../Hooks/DisabledContext";
+import { useFormComponent } from "../Hooks/FormComponentContext";
 import { LoadingProvider } from "../Hooks/LoadingContext";
 import { SubmitProvider } from "../Hooks/SubmitContext";
 
@@ -12,7 +13,6 @@ export interface FormProps<T extends FieldValues> {
     disabled?: boolean,
     className?: string,
     loading?: boolean,
-    reactNative?: boolean
     children: React.ReactNode,
 }
 
@@ -23,9 +23,10 @@ export default function BaseForm<T extends FieldValues>({
     disabled = false,
     className,
     loading = false,
-    reactNative = false,
     children
 }: FormProps<T>) {
+    const {reactNative = false} = useFormComponent();
+
     const handleSubmit = useCallback((submitButton?: string) => {
         return form.handleSubmit((data, event) => onSubmit?.(data, event, submitButton));
     }, [form, onSubmit]);

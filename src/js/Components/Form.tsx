@@ -1,12 +1,12 @@
 import { AxiosError } from "axios";
 import React, { useCallback, useState } from "react";
 import { FieldValues, Path } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import FormError from "../FormError";
+import { useFormComponent } from "../Hooks/FormComponentContext";
 import BaseForm, { FormProps, SubmitHandler } from "./BaseForm";
 
 export default function Form<T extends FieldValues>({onSubmit, form, ...props}: FormProps<T>) {
-    const {t} = useTranslation();
+    const {t = key => key} = useFormComponent();
     const [loading, setLoading] = useState(false);
 
     const handleSubmit: SubmitHandler<T> = useCallback(async (...args) => {
