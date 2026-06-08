@@ -8,7 +8,7 @@ import { SubmitProvider } from "../Hooks/SubmitContext";
 export type SubmitHandler<T extends FieldValues> = (data: T, event?: React.BaseSyntheticEvent, submitButton?: string) => any | Promise<any>;
 export interface FormProps<T extends FieldValues> {
     id?: string,
-    form: UseFormReturn<FieldValues, any, T>,
+    form: UseFormReturn<any, any, T>,
     onSubmit?: SubmitHandler<T>,
     disabled?: boolean,
     className?: string,
